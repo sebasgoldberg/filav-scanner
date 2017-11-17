@@ -11,9 +11,15 @@
 				id="page"
 				title="{i18n>title}">
 				<content>
-                    <core:HTML id="preview"
-                        content='&lt;video&gt; &lt;/video&gt;'>
-                    </core:HTML>
+                    <FlexBox
+                        alignItems="Center"
+                        justifyContent="Center">
+                        <items>
+                            <core:HTML id="preview"
+                                content='&lt;video&gt; &lt;/video&gt;'>
+                            </core:HTML>
+                        </items>
+                    </FlexBox>
                 </content>
 			</Page>
 		</pages>

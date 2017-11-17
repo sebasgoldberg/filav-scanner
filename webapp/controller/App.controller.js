@@ -1,12 +1,15 @@
 sap.ui.define([
 	"sap/ui/core/mvc/Controller",
     "sap/m/MessageToast",
-], function(Controller, MessageToast) {
+    "iamsoft/filav/scanner/model/Local",
+], function(Controller, MessageToast, Local) {
 	"use strict";
 
 	return Controller.extend("iamsoft.filav.scanner.controller.App", {
 
 		onInit: function () {
+
+            this._local = new Local(1);
 
             this.getView().byId('preview').attachAfterRendering(this, () => {
 
@@ -16,9 +19,9 @@ sap.ui.define([
                     video: previewElement,
                 });
 
-                scanner.addListener('scan', function (content) {
+                scanner.addListener('scan', qrcode => {
+                    this._local.enviarFilas(qrcode);
                     MessageToast.show(content);
-                    console.log(content);
                 });
 
                 Instascan.Camera.getCameras().then(function (cameras) {
