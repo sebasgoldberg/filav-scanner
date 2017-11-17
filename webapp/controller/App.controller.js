@@ -8,28 +8,30 @@ sap.ui.define([
 
 		onInit: function () {
 
-            //let viewDivId = this.getView().createId("preview");
-            //let previewElement = jQuery("#"+viewDivId)[0];
-            let previewElement = this.getView().byId('preview').getDomRef();
+            this.getView().byId('preview').attachAfterRendering(this, () => {
 
-            let scanner = new Instascan.Scanner({ 
-                video: previewElement,
-            });
+                let previewElement = this.getView().byId('preview').getDomRef();
 
-            scanner.addListener('scan', function (content) {
-                MessageToast.show(content);
-                console.log(content);
-            });
+                let scanner = new Instascan.Scanner({ 
+                    video: previewElement,
+                });
 
-            Instascan.Camera.getCameras().then(function (cameras) {
-                if (cameras.length > 0) {
-                    scanner.start(cameras[0]);
-                } else {
-                    console.error('No cameras found.');
-                }
-            }).catch(function (e) {
-                console.error(e);
-            });
+                scanner.addListener('scan', function (content) {
+                    MessageToast.show(content);
+                    console.log(content);
+                });
+
+                Instascan.Camera.getCameras().then(function (cameras) {
+                    if (cameras.length > 0) {
+                        scanner.start(cameras[0]);
+                    } else {
+                        console.error('No cameras found.');
+                    }
+                }).catch(function (e) {
+                    console.error(e);
+                });
+
+            }, this)
 
 		}
 	});
