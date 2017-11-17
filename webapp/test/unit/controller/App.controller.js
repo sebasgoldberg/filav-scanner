@@ -1,7 +1,7 @@
 /*global QUnit*/
 
 sap.ui.define([
-	"sap/ui/demo/basicTemplate/controller/App.controller"
+	"iamsoft/filav/scanner/controller/App.controller"
 ], function(oController) {
 	"use strict";
 
