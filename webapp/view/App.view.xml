@@ -1,14 +1,20 @@
 <mvc:View
 	controllerName="iamsoft.filav.scanner.controller.App"
 	xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
 	displayBlock="true"
-	xmlns="sap.m">
+	xmlns="sap.m"
+    xmlns:html="http://www.w3.org/1999/xhtml">
 	<App id="app">
 		<pages>
 			<Page
 				id="page"
 				title="{i18n>title}">
-				<content></content>
+				<content>
+                    <core:HTML id="preview"
+                        content='&lt;video&gt; &lt;/video&gt;'>
+                    </core:HTML>
+                </content>
 			</Page>
 		</pages>
 	</App>
