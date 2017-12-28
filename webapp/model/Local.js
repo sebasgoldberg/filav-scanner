@@ -8,14 +8,14 @@ sap.ui.define([
 		
 		constructor: function (idLocal) {
             this._id = idLocal;
-			this._socket = new Socket('/fila/');
+			this._socket = new Socket('/scanner/');
 			this._socket.listen( data => {
 			});
 		},
 
 		enviarFilas: function(qrcode){
 			this._socket.send({
-                message: 'ENVIAR_FILAS',
+                message: 'SCAN',
                 data: {
                     qrcode: qrcode,
                     local: this._id,
