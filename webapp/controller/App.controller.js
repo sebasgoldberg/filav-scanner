@@ -92,6 +92,7 @@ sap.ui.define([
 
         qrCodeLido: function(qrcode){
             this._local.enviarFilas(qrcode);
+            MessageToast.show('Codigo QR lido e enviado para validar. Por favor verifique seu dispositivo.')
         },
 
         initScan: function(){
