@@ -4,6 +4,7 @@
     xmlns:core="sap.ui.core"
 	displayBlock="true"
 	xmlns="sap.m"
+    xmlns:f="sap.ui.layout.form"
     xmlns:html="http://www.w3.org/1999/xhtml">
 	<App id="app">
 		<pages>
@@ -11,7 +12,69 @@
 				id="page"
 				title="{i18n>title}">
 				<content>
+
+					<FlexBox
+						alignItems="Center"
+						justifyContent="Center"
+						>
+						<items>
+							<f:Form editable="true"
+								>
+								<f:layout>
+									<f:ResponsiveGridLayout
+										labelSpanXL="3"
+										labelSpanL="3"
+										labelSpanM="3"
+										labelSpanS="12"
+										adjustLabelSpan="false"
+										emptySpanXL="4"
+										emptySpanL="4"
+										emptySpanM="4"
+										emptySpanS="0"
+										columnsXL="1"
+										columnsL="1"
+										columnsM="1"
+										singleContainerFullSize="false" />
+								</f:layout>
+								<f:FormContainer>
+									<f:formElements>
+										<f:FormElement label="Local">
+											<f:fields>
+												<Select
+                                                    enabled="{=!${view>scanning}}"
+													id="localSelect"
+													forceSelection="true"
+													selectedKey="{form>/local}"
+													items="{
+														path: 'locais>/',
+														sorter: { path: 'nome' }
+													}">
+													<core:Item key="{locais>id}" text="{locais>nome}" />
+												</Select>
+											</f:fields>
+										</f:FormElement>
+										<f:FormElement>
+											<Button text="Scan" type="Emphasized"
+                                                enabled="{=!${view>scanning}}"
+												press="onScan" id="scanButton">
+											</Button>
+										</f:FormElement>
+										<f:FormElement>
+											<Button text="Cancelar" type="Neutral"
+                                                enabled="{view>scanning}"
+												press="onCancelar" id="cancelarButton">
+											</Button>
+										</f:FormElement>
+									</f:formElements>
+								</f:FormContainer>
+							</f:Form>
+						</items>
+					</FlexBox>
+
+
+
                     <FlexBox
+                        id="scanner"
                         alignItems="Center"
                         justifyContent="Center">
                         <items>
@@ -20,6 +83,7 @@
                             </core:HTML>
                         </items>
                     </FlexBox>
+
                 </content>
 			</Page>
 		</pages>
