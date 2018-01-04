@@ -1,3 +1,0 @@
-[submodule "webapp/resources/socket"]
-	path = webapp/resources/socket
-	url = git@iamsoft.org:channels-ui5-socket.git
