@@ -1,21 +1,22 @@
+/*global Instascan*/
 sap.ui.define([
-	"sap/ui/core/mvc/Controller",
-    "sap/m/MessageToast",
-    "iamsoft/filav/scanner/model/Local",
-    "sap/ui/model/json/JSONModel",
+    'sap/ui/core/mvc/Controller',
+    'sap/m/MessageToast',
+    'iamsoft/filav/scanner/model/Local',
+    'sap/ui/model/json/JSONModel',
 ], function(Controller, MessageToast, Local, JSONModel) {
-	"use strict";
+    'use strict';
 
-	return Controller.extend("iamsoft.filav.scanner.controller.App", {
+    return Controller.extend('iamsoft.filav.scanner.controller.App', {
 
-		onInit: function () {
+        onInit: function () {
 
             let oModelLocales = new JSONModel([]);
             this.getView().setModel(oModelLocales, 'locais');
             this.getView().bindElement({path:'/', model:'locais'});
 
             let oModelForm = new JSONModel({local:''});
-            this.getView().setModel(oModelLocales, 'form');
+            this.getView().setModel(oModelForm, 'form');
             this.getView().bindElement({path:'/', model:'form'});
 
             let oModelView = new JSONModel({scanning:false});
@@ -32,22 +33,22 @@ sap.ui.define([
 
                 jQuery.ajax(uri,
                     {
-                        type : "GET",
-                        contentType : "application/json",
-                        dataType : "json",
-                        success : function(data, textStatus, jqXHR) {
+                        type : 'GET',
+                        contentType : 'application/json',
+                        dataType : 'json',
+                        success : function(data) {
                             resolve(data);
                         }
                     }
-                ).fail(function( jqXHR, textStatus, errorThrown ) {
-                    reject(jqXHR)
+                ).fail(function( jqXHR ) {
+                    reject(jqXHR);
                 });
                 
             });
         },
 
         getLocaisDisponiveis: function(){
-			return this.get('/api/locais/');
+            return this.get('/api/locais/');
         },
 
         loadForm: function(){
@@ -72,7 +73,7 @@ sap.ui.define([
             oModelView.refresh();
         },
 
-        onScan: function(oEvent){
+        onScan: function(){
             let localSelecionado = this.getLocalSelecionado();
             this._local = new Local(localSelecionado);
             this.scan();
@@ -92,7 +93,7 @@ sap.ui.define([
 
         qrCodeLido: function(qrcode){
             this._local.enviarFilas(qrcode);
-            MessageToast.show('Codigo QR lido e enviado para validar. Por favor verifique seu dispositivo.')
+            MessageToast.show('Codigo QR lido e enviado para validar. Por favor verifique seu dispositivo.');
         },
 
         initScan: function(){
@@ -100,25 +101,25 @@ sap.ui.define([
             this.getView().byId('preview')
                 .attachAfterRendering(this, () => {
 
-                let previewElement = this.getView().byId('preview')
-                    .getDomRef();
+                    let previewElement = this.getView().byId('preview')
+                        .getDomRef();
 
-                this._scanner = new Instascan.Scanner({ 
-                    video: previewElement,
-                });
+                    this._scanner = new Instascan.Scanner({ 
+                        video: previewElement,
+                    });
 
-                this._scanner.addListener('scan', qrcode => {
-                    this.qrCodeLido(qrcode)
-                });
+                    this._scanner.addListener('scan', qrcode => {
+                        this.qrCodeLido(qrcode);
+                    });
 
-            }, this)
+                }, this);
 
-		},
+        },
 
         onCancelar: function(){
             this._scanner.stop();
             this.setScanningMode(false);
         }
 
-	});
+    });
 });
