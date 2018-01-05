@@ -119,7 +119,11 @@ sap.ui.define([
         onCancelar: function(){
             this._scanner.stop();
             this.setScanningMode(false);
-        }
+        },
+
+        onLogout: function(){
+            window.open('/logout','_self');
+        },
 
     });
 });
